@@ -17,8 +17,5 @@
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "node-notifier": "^5.2.1"
-  },
-  "dependencies": {
-    "gulp-npm-dist": "^1.0.2"
   }
 }
