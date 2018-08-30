@@ -1,0 +1,204 @@
+.form {
+  width: 100%;
+  border-radius: 0 0 $radius-section $radius-section;
+  position: relative;
+  font-weight: 300;
+  overflow: hidden;
+  max-height: 0;
+  padding-left: $padding-section;
+  padding-right: $padding-section;
+  transition: 0.3s ease-out max-height, 0.3s padding;
+}
+
+.form textarea {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.priority-box {
+  display: flex;
+  flex-direction: column;
+  margin-left: 26px;
+}
+
+.form label {
+  color: $color-gray-font;
+  font-size: 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.form label[for="task-input"],
+.form label[for="date-input"],
+.form label[for="textarea-input"] {
+  position: absolute;
+  left: -99999px;
+}
+
+.form label[for*="-input"] {
+  margin: 2px 0;
+}
+
+.form input[name="form-priority"] {
+  margin: 5px 0 5px 0;
+  opacity: 1;
+  position: absolute;
+  left: -23px;
+  top: -2px;
+
+  &:before {
+    content: '';
+    height: 6px;
+    width: 6px;
+    position: absolute;
+  }
+
+  &:after {
+    content: '';
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 0.5px solid $color-gray-font;
+    background: white;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    display: block;
+  }
+}
+
+.form input[name="form-priority"]:checked {
+  &:before {
+    content: '';
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    border: 0.5px solid white;
+    background: white;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    opacity: 1;
+    z-index: 1;
+    display: inline-block;
+
+  }
+
+  &:after {
+    content: '';
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 0.5px solid $color-blue;
+    background: $color-blue;
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    display: inline-block;
+  }
+}
+
+
+#task-input, #date-input, #textarea-input {
+  margin-top: 20px;
+  border-radius: $radius-form;
+  border: 1px solid $color-gray-border;
+  transition: 0.5s all;
+  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  color: black;
+  font-weight: 300;
+  padding-left: 5px;
+
+  &::placeholder {
+    color: rgba($color-gray-font, 0.5);
+  }
+
+  &:focus {
+    border: 1px solid $color-blue;
+    box-shadow: 0 0 2px $color-blue;
+  }
+}
+
+#task-input, #date-input {
+  height: 35px;
+}
+
+#task-input, #textarea-input {
+  width: 100%;
+}
+
+#textarea-input {
+  height: 80px;
+  resize: none;
+}
+
+.form p {
+  margin-top: 20px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid $color-gray-border;
+  width: 150px;
+  height: 26px;
+  color: $color-gray-font;
+  font-size: 16px;
+}
+
+.form-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 120px;
+}
+
+#form-submitBtn {
+  display: inline-block;
+  height: 40px;
+  width: 180px;
+  border: 1px solid $color-gray-font;
+  background-color: $color-gray-font;
+  color: white;
+  transition: 0.5s background-color, color, border;
+  font-size: 14px;
+  border-radius: $radius-form;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:active {
+      background-color: white;
+      color: $color-gray-font;
+      border: none;
+      box-shadow: 0 0 5px $color-gray-font;
+  }
+
+  &focus {
+      outline: 1px solid $color-gray-font;
+  }
+}
+
+#error-message {
+  color: red;
+  font-size: 14px;
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+
+//----------- media queries -----------
+
+@media (min-width: 400px) {
+  .form {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media (min-width: 500px) {
+  #task-input, #date-input, #textarea-input {
+    font-size: 16px;
+  }
+}
+

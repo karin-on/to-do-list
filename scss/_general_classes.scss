@@ -1,0 +1,14 @@
+.accordion {
+  display: block;
+  padding-top: $padding-section;
+  padding-bottom: $padding-section;
+  border: 1px solid $color-gray-border;
+}
+
+.hidden {
+  display: none;
+}
+
+li.hidden-always {
+  display: none;
+}

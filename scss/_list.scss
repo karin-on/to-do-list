@@ -1,0 +1,296 @@
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  border: 1px solid $color-gray-border;
+  border-radius: 8px;
+  margin-top: 30px;
+
+  button {
+    width: 150px;
+    height: 40px;
+    background: white;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 100;
+    transition: 0.3s all;
+  }
+}
+
+.taskList {
+  margin: 30px 0 50px 0;
+}
+
+.taskList-title {
+  color: $color-blue;
+  font-weight: 300;
+  font-size: 18px;
+  border-bottom: 1px solid $color-blue;
+  width: 150px;
+  height: 28px;
+  margin-left: 10px;
+}
+
+.taskList li button {
+  width: 30px;
+  height: 35px;
+  color: transparent;
+}
+
+.taskList li {
+  list-style: none;
+
+  .task-delete {
+    border: 1px solid $color-red;
+    position: relative;
+    transition: 0.3s all;
+
+    .fa-minus {
+      position: absolute;
+      color: $color-red;
+      left: 50%;
+      bottom: 50%;
+      transform: translate(-50%, 60%);
+    }
+
+    &:hover {
+      background: $color-red;
+      box-shadow: 0 5px 6px -3px rgba($color-red, 0.3);
+
+      .fa-minus {
+        color: white;
+      }
+    }
+
+    &:active {
+      background: lighten($color-red, 10%);
+    }
+  }
+
+  .task-complete {
+    border: 1px solid $color-green;
+    position: relative;
+    transition: 0.3s all;
+    margin-right: 5px;
+
+    .fa-check {
+      position: absolute;
+      color: $color-green;
+      left: 50%;
+      bottom: 50%;
+      transform: translate(-50%, 40%);
+    }
+
+    &:hover {
+      background: $color-green;
+      box-shadow: 0 5px 6px -3px rgba($color-green, 0.3);
+
+      .fa-check {
+        color: white;
+      }
+    }
+
+    &:active {
+      background: lighten($color-green, 10%);
+    }
+  }
+
+  .task-show {    //button
+    position: relative;
+    border: 1px solid darken($color-gray-border, 5%);
+    transition: 0.3s all;
+    margin-right: 5px;
+
+    .task-show-dots {
+      color: $color-gray-font;
+      font-weight: 900;
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: 50%;
+      transform: translate(-50%, 30%);
+    }
+
+    &:hover {
+      background: $color-gray-border;
+      box-shadow: 0 5px 6px -3px rgba($color-gray-border, 0.5);
+
+      .task-show-dots {
+        color: white;
+      }
+    }
+
+    &:active {
+      background: lighten($color-gray-font, 10%);
+    }
+  }
+}
+
+//===========
+
+.task-head-panel {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-descr-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.accordion-list-active {
+  transition: 0.3s;
+}
+
+.task-description {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 15% 10px 7%;
+  padding: 10px;
+}
+
+
+//===========
+
+
+.task-name {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.task-date {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.task-priority {
+  font-size: 17px;
+  color: $color-blue;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.li-col-1,
+.li-col-3,
+.li-col-4,
+.li-col-5 {
+  max-width: 15%;
+}
+
+.li-col-2 {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-bottom: 1px solid $color-gray-border;
+
+  .first-row {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.task-description {
+  font-size: 14px;
+  font-weight: 300;
+  margin: 5px 0 5px 26px;
+}
+
+.task-id {
+  display: none;
+}
+
+.li-remove-btns {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.removeFinishedBtn,
+.removeAllBtn {
+  color: $color-red;
+  border: 1px solid $color-red;
+  overflow: hidden;
+
+
+  &:hover {
+    color: white;
+    background: $color-red;
+    box-shadow: 0 5px 6px -3px rgba($color-red, 0.3);
+  }
+
+  &:active {
+    background: lighten($color-red, 10%);
+  }
+
+}
+
+.removeFinishedBtn {
+  margin-bottom: 10px;
+}
+
+.done {
+  .li-col-2,
+  .li-col-3 .task-priority {
+    color: rgba(black ,0.2);
+  }
+}
+
+//----------- media queries -----------
+@media (min-width: 400px) {
+  .list {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .taskList-title {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 450px) {
+  .li-remove-btns {
+    //width: ;
+    margin-left: 0;
+  }
+
+  .li-remove-btns {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 500px) {
+  .task-name {
+    font-size: 16px;
+  }
+
+  .task-date {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 550px) {
+  .task-name {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 600px) {
+  .taskList-title {
+    font-size: 19px;
+  }
+
+  .taskList li button {
+    width: 40px;
+    height: 40px;
+  }
+}
+

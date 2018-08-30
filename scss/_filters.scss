@@ -1,0 +1,188 @@
+.filters {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid $color-gray-border;
+  border-radius: 8px;
+  margin-top: 30px;
+
+  .filters-title {
+    color: $color-blue;
+    font-weight: 300;
+    font-size: 18px;
+    border-bottom: 1px solid $color-blue;
+    width: 150px;
+    height: 28px;
+  }
+}
+
+.filters-row-1 {
+  height: 10%;
+}
+
+.filters-row-2 {
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-row-3 {
+  height: 15%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.filters-row-2-btns {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter_priority {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters-priority-title {
+  color: $color-blue;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.custom-select {
+  width: 150px;
+  height: 40px;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 100;
+  border: 1px solid $color-blue;
+  margin-top: 5px;
+
+  select {
+    width: 100%;
+    height: 100%;
+    background: white;
+  }
+}
+
+.filters button {
+  width: 150px;
+  height: 40px;
+  background: white;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 100;
+  transition: 0.3s all;
+}
+
+.filter-done-btn,
+.filter-undone-btn {
+  margin-top: 15px;
+  margin-right: 15px;
+}
+
+.filter-done-btn {
+  color: $color-green;
+  border: 1px solid $color-green;
+
+  &:hover {
+    color: white;
+    background: $color-green;
+    box-shadow: 0 5px 6px -3px rgba($color-green, 0.3);
+  }
+
+  &:active {
+    background: lighten($color-green, 10%);
+  }
+}
+
+.filter-undone-btn {
+    color: $color-red;
+    border: 1px solid $color-red;
+
+  &:hover {
+    color: white;
+    background: $color-red;
+    box-shadow: 0 5px 6px -3px rgba($color-red, 0.3);
+  }
+
+  &:active {
+    background: lighten($color-red, 10%);
+  }
+}
+
+.filters .filters-reset {
+  width: 320px;
+  color: $color-blue;
+  border: 1px solid $color-blue;
+
+  &:hover {
+    color: white;
+    background: $color-blue;
+    box-shadow: 0 5px 6px -3px rgba($color-blue, 0.3);
+  }
+
+  &:active {
+    background: lighten($color-blue, 10%);
+  }
+}
+
+//----------- media queries -----------
+
+@media (min-width: 400px) {
+  .filters-row-3 {
+    justify-content: center;
+  }
+}
+
+
+@media (min-width: 450px) {
+  .filters {
+    height: 350px;
+  }
+
+  .filters-row-1 {
+    height: 15%;
+  }
+
+  .filters-row-2 {
+    height: 65%;
+  }
+
+  .filters-row-3 {
+    height: 20%;
+  }
+
+  .filters-row-2-btns {
+    height: 130px;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 600px) {
+  .filters .filters-title {
+    font-size: 19px;
+  }
+
+  .filters-row-2 {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .filter-done-btn,
+  .filter-undone-btn {
+    margin-top: 25px;
+  }
+
+  .filters {
+    height: 300px;
+  }
+}
+
+
