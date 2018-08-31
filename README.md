@@ -52,7 +52,7 @@ The site is designed with RWD approach, mobile-first.
 
 ## Demo
 
-#### **[ToDo List](https://karin-on.github.io/to-do-list/)**
+### **[ToDo List](https://karin-on.github.io/to-do-list/)**
 
 
 
