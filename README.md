@@ -39,7 +39,7 @@ The site is designed with RWD approach, mobile-first.
 
 ## Features
 
-- adding new tasks (with a date, priority and description) by filling in a form sliding down after clicking "Add"
+- adding new tasks (with a date, priority and description) by filling in a form sliding down after clicking "Add new"
 - form validation - before a new task is added to the list the app checks if you have entered a title (not longer than 25 characters), a date and chosen a priority. It is possible to add a task without a descprition but if you do add it, it can't be longer than 100 characters. A date validation is pretty basic right now - you need to enter anything to go through.
 - filters - you can select completed/uncompleted tasks, tasks with a given priority or just show all of them.
 - showing a sliding down task's description by clicking a "More" button
@@ -62,6 +62,7 @@ The site is designed with RWD approach, mobile-first.
 
 
 
+![to-do-list_prev4](./images/to-do-list_prev4.png)![to-do-list_prev4](./images/to-do-list_prev5.png)
 
 
-![to-do-list_prev4](./images/to-do-list_prev4.png)
+

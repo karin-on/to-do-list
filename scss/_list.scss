@@ -151,8 +151,10 @@
   justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
-  margin: 10px 15% 10px 7%;
   padding: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 5px 0 5px 26px;
 }
 
 
@@ -194,12 +196,6 @@
     display: flex;
     justify-content: space-between;
   }
-}
-
-.task-description {
-  font-size: 14px;
-  font-weight: 300;
-  margin: 5px 0 5px 26px;
 }
 
 .task-id {
@@ -257,7 +253,6 @@
 
 @media (min-width: 450px) {
   .li-remove-btns {
-    //width: ;
     margin-left: 0;
   }
 
@@ -292,5 +287,10 @@
     width: 40px;
     height: 40px;
   }
+
+  .task-description {
+    padding: 10px 20px;
+  }
+
 }
 

@@ -14,49 +14,49 @@
     <div class="container">
 
         <header class="header">
-            <h1>Moja lista zadań</h1>
-            <button id="addNewTaskBtn" class="btn-dark-blue">Dodaj nowe</button>
+            <h1>My task list</h1>
+            <button id="addNewTaskBtn" class="btn-dark-blue">Add new</button>
         </header>
 
         <section class="form">
 
             <form action="" id="form">
 
-                <label for="task-input">Temat</label>
-                <input type="text" name="form-task" id="task-input" placeholder="Temat">
+                <label for="task-input">Title</label>
+                <input type="text" name="form-task" id="task-input" placeholder="Title">
 
-                <label for="date-input">Termin</label>
-                <input type="date" name="form-date" id="date-input" placeholder="Termin" required>
+                <label for="date-input">Date</label>
+                <input type="date" name="form-date" id="date-input" placeholder="Date" required>
 
-                <p>Wybierz priorytet</p>
+                <p>Priority</p>
                 <div class="priority-box">
                     <label for="p1-input">
                         <input type="radio" name="form-priority" value="1" id="p1-input">
-                        Priorytet 1
+                        1
                     </label>
                     <label for="p2-input">
                         <input type="radio" name="form-priority" value="2" id="p2-input">
-                        Priorytet 2
+                        2
                     </label>
                     <label for="p3-input">
                         <input type="radio" name="form-priority" value="3" id="p3-input">
-                        Priorytet 3
+                        3
                     </label>
                     <label for="p4-input">
                         <input type="radio" name="form-priority" value="4" id="p4-input">
-                        Priorytet 4
+                        4
                     </label>
                     <label for="p5-input">
                         <input type="radio" name="form-priority" value="5" id="p5-input">
-                        Priorytet 5
+                        5
                     </label>
                 </div>
 
-                <label for="textarea-input">Opis zadania</label>
-                <textarea name="form-description" cols="100" rows="3" id="textarea-input" placeholder="Opis zadania"></textarea>
+                <label for="textarea-input">Task description</label>
+                <textarea name="form-description" cols="100" rows="3" id="textarea-input" placeholder="Task description"></textarea>
 
                 <div class="form-bottom">
-                    <button id="form-submitBtn" type="submit">Zapisz zadanie</button>
+                    <button id="form-submitBtn" type="submit">Save</button>
                     <div id="error-message"></div>
                 </div>
 
@@ -66,21 +66,21 @@
         <section class="filters">
 
             <div class="filters-row-1">
-                <h2 class="filters-title">Filtruj zadania</h2>
+                <h2 class="filters-title">Filter tasks</h2>
             </div>
 
             <div class="filters-row-2">
                 <div class="filters-row-2-btns">
-                    <button type="button" id="filter-done-btn" class="filter-done-btn">Pokaż wykonane</button>
-                    <button type="button" id="filter-undone-btn" class="filter-undone-btn">Pokaż niewykonane</button>
+                    <button type="button" id="filter-done-btn" class="filter-done-btn">Show finished</button>
+                    <button type="button" id="filter-undone-btn" class="filter-undone-btn">Show unfinished</button>
                 </div>
 
                 <form action="" id="filter_priority" class="filter_priority">
-                    <label class="filters-priority-title">Priorytet</label>
+                    <label class="filters-priority-title">Priority</label>
 
                     <div class="custom-select">
                         <select name="filter-priority">
-                            <option value="filter-all">Wybierz</option>
+                            <option value="filter-all">Choose</option>
                             <option value="filter-p1">1</option>
                             <option value="filter-p2">2</option>
                             <option value="filter-p3">3</option>
@@ -92,12 +92,12 @@
             </div>
 
             <div class="filters-row-3">
-                <button type="button" id="filters-reset" class="filters-reset">Pokaż wszystkie</button>
+                <button type="button" id="filters-reset" class="filters-reset">Show all</button>
             </div>
         </section>
 
         <section class="list">
-            <h2 id="taskList-title" class="taskList-title">Zadania</h2>
+            <h2 id="taskList-title" class="taskList-title">Tasks</h2>
 
             <ul class="hidden-always">
                 <li id="liToClone" class="hidden-always">
@@ -106,7 +106,6 @@
 
                         <div class="li-col-1">
                             <button class="task-show">
-                                Pokaż szczegóły
                                 <span class="task-show-dots">...</span>
                             </button>
                         </div>
@@ -151,8 +150,8 @@
 
 
             <div class="li-remove-btns">
-                <button id="removeFinishedBtn" class="removeFinishedBtn">Usuń zakończone zadania</button>
-                <button id="removeAllBtn" class="removeAllBtn">Usuń wszystkie zadania</button>
+                <button id="removeFinishedBtn" class="removeFinishedBtn">Delete<br>finished tasks</button>
+                <button id="removeAllBtn" class="removeAllBtn">Delete<br>all tasks</button>
             </div>
         </section>
     </div>
