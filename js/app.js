@@ -54,9 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- odświeżenie eventów na wszystkich buttonach -----
     function findAllBtns() {
-            findCompleteTaskBtns();
-            findDeleteBtns();
-            findShowDescrBtns();
+        findCompleteTaskBtns();
+        findDeleteBtns();
+        findShowDescrBtns();
     }
 
     // ----- przekazanie tablicy obiektów do stworzenia listy w html -----
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let textAreaInput = document.querySelector('#textarea-input');
 
         let error = document.querySelector('#error-message');
-        error.innerText = '';   //musi zostać, believe me :) w razie wątpliwości służę wyjaśnieniem
+        error.innerText = '';
         let formValid = true;
 
         let taskPriority;
@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (taskInput.value.length <= 0) {
             formValid = false;
-            error.innerText += '- wpisz tytuł zadania \n';
+            error.innerText += "- enter a task's title \n";
         }
 
         if (taskInput.value.length > 25) {
             formValid = false;
-            error.innerText += '- tytuł zadania nie może być dłuższy niż 25 znaków  \n';
+            error.innerText += "- a title can't be longer than 25 characters \n";
         }
 
 
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         if (checkboxCheckedNumber === 0) {
-            error.innerText += '- wybierz priorytet \n';
+            error.innerText += '- please choose priority \n';
             formValid = false;
         }
 
@@ -155,14 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (textAreaInput.value.length > 100) {
             formValid = false;
-            error.innerText += '- opis zadania nie może być dłuższy niż 100 znaków \n';
+            error.innerText += "- a task's description can't be longer than 100 characters \n";
         }
 
 
         //JESLI WALIDACJA JEST OK, uruchom funkcje:
 
         if(formValid) {
-
             createNewTaskObject(getTaskId, taskInput.value, dateInput.value, textAreaInput.value, taskPriority);
 
             closeForm();
@@ -214,15 +213,12 @@ document.addEventListener('DOMContentLoaded', function() {
         newArrToLS.push(newTaskObject);
 
         addArrayToLS(newArrToLS);
-
     }
 
 
     //=========================================================
     // ------- BUTTONY - usuwanie pojedynczych tasków --------
 
-
-    // nałożenie eventu usuwania na buttony (funkcja odpalana po każdym odświeżeniu listy z LS)
 
     function findDeleteBtns() {
 
@@ -248,7 +244,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let newArrToLS = taskArray.slice();
 
         for (let j = 0; j < newArrToLS.length; j++) {
-
             if (newArrToLS[j].taskId === id.innerText) {
                 newArrToLS.splice(j, 1);
 
@@ -264,8 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //--------- BUTTONY - oznaczanie wykonanych ------------
 
 
-    // nałożenie eventu wykonania na buttony (funkcja odpalana po każdym odświeżeniu listy z LS)
-
     function findCompleteTaskBtns() {
         let completeTaskBtns = document.querySelectorAll('.task-complete');
 
@@ -277,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function markAsCompleted() {
 
         let taskId = this.parentElement.parentElement.parentElement.querySelector('.task-id');
-
         let taskArray = parseJsonFromLS();
 
         //kopia tablicy pobranej z LS
@@ -327,7 +319,6 @@ document.addEventListener('DOMContentLoaded', function() {
     priorities.addEventListener('change', function () {
 
         let priorityOption = this.value.charAt(this.value.length - 1);
-
         let allTasks = taskList.querySelectorAll('li');
 
         if (this.value !== "filter-all") {
@@ -352,9 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showAllTasks (arr) {
-
         for (let i = 0; i < arr.length; i++) {
-
             arr[i].classList.remove('hidden');
         }
     }
@@ -367,11 +356,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let tasks = taskList.querySelectorAll('li');
 
         for (let i = 0; i < tasks.length; i++) {
-
             tasks[i].classList.contains('done') ?
                 tasks[i].classList.remove('hidden') :
                 tasks[i].classList.add('hidden');
-
         }
     });
 
@@ -383,11 +370,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let tasks = taskList.querySelectorAll('li');
 
         for (let i = 0; i < tasks.length; i++) {
-
             tasks[i].classList.contains('done') ?
                 tasks[i].classList.add('hidden') :
                 tasks[i].classList.remove('hidden');
-
         }
     });
 
@@ -398,11 +383,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let tasks = taskList.querySelectorAll('li');
 
         for (let i = 0; i < tasks.length; i++) {
-
             if (tasks[i].classList.contains('hidden')) {
                 tasks[i].classList.remove('hidden');
             }
-
         }
         filterPriorityForm.reset();
     });
@@ -416,7 +399,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let newArrToLS = [];
         addArrayToLS(newArrToLS);
         //przekazuję pustą tablicę do LS i ona jest wczytywana do html
-
     });
 
     //===============================================
@@ -462,9 +444,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function changeBtnTxt(btnName) {
-        btnName.innerText = btnName.innerText === "DODAJ NOWE" ?
-            "Zwiń formularz" :
-            "Dodaj nowe"
+        btnName.innerText = btnName.innerText === "ADD NEW" ?
+            "Hide form" :
+            "Add new"
     }
 
     function changeBtnClass(btnName) {
