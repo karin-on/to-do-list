@@ -18,11 +18,11 @@
   }
 }
 
-.taskList {
+.task-list {
   margin: 30px 0 50px 0;
 }
 
-.taskList-title {
+.task-list-title {
   color: $color-blue;
   font-weight: 300;
   font-size: 18px;
@@ -32,13 +32,13 @@
   margin-left: 10px;
 }
 
-.taskList li button {
+.task-list li button {
   width: 30px;
   height: 35px;
   color: transparent;
 }
 
-.taskList li {
+.task-list li {
   list-style: none;
 
   .task-delete {
@@ -209,8 +209,8 @@
   margin-left: 10px;
 }
 
-.removeFinishedBtn,
-.removeAllBtn {
+.remove-finished-btn,
+.remove-all-btn {
   color: $color-red;
   border: 1px solid $color-red;
   overflow: hidden;
@@ -228,7 +228,7 @@
 
 }
 
-.removeFinishedBtn {
+.remove-finished-btn {
   margin-bottom: 10px;
 }
 
@@ -246,7 +246,7 @@
     padding-right: 20px;
   }
 
-  .taskList-title {
+  .task-list-title {
     margin-left: 0;
   }
 }
@@ -279,11 +279,11 @@
 }
 
 @media (min-width: 600px) {
-  .taskList-title {
+  .task-list-title {
     font-size: 19px;
   }
 
-  .taskList li button {
+  .task-list li button {
     width: 40px;
     height: 40px;
   }

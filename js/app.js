@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const formSection = document.querySelector('.form');
     const formHeader = document.querySelector('.header');
 
-    const addNewTaskBtn = document.querySelector('#addNewTaskBtn');
+    const addNewTaskBtn = document.querySelector('#add-new-task-btn');
     const filterDoneBtn = document.querySelector('#filter-done-btn');
     const filterUndoneBtn = document.querySelector('#filter-undone-btn');
-    const removeAllBtn = document.querySelector('#removeAllBtn');
-    const removeFinishedBtn = document.querySelector('#removeFinishedBtn');
+    const removeAllBtn = document.querySelector('#remove-all-btn');
+    const removeFinishedBtn = document.querySelector('#remove-finished-btn');
+    const filtersResetBtn = document.querySelector('#filters-reset-btn');
 
-    const liToClone = document.querySelector('#liToClone');
-    const taskList = document.querySelector('#taskList');
+    const liToClone = document.querySelector('#li-to-clone');
+    const taskList = document.querySelector('#task-list');
     const priorities = document.querySelector('select');
-    const filtersReset = document.querySelector('#filters-reset');
     const filterPriorityForm = document.querySelector('#filter_priority');
 
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //musi być pobrana wewnątrz funkcji
         let taskArrayJSON = localStorage.getItem("todolist");
 
-        let htmlArray = [];
+        let htmlArray = [];             //TODO: znalezc jakas lepsza nazwe
         if (taskArrayJSON) {
             htmlArray = JSON.parse(taskArrayJSON);
         }
@@ -40,12 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ----- pobranie listy z LS do htmla i odświeżenie buttonów -----
-    // odpalana na starcie oraz przy dodawaniu / usuwaniu tasków
+    // odpalana na starcie oraz przy dodawaniu/usuwaniu tasków
 
     function getFromLS() {
-
-        let taskArray = parseJsonFromLS();
         //musi być pobierana wewnątrz poszczególnych funkcji, inaczej się nie aktualizuje
+        let taskArray = parseJsonFromLS();
 
         addArrayToHtml(taskArray);
         findAllBtns();
@@ -54,14 +53,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----- odświeżenie eventów na wszystkich buttonach -----
     function findAllBtns() {
+        findShowDescrBtns();
         findCompleteTaskBtns();
         findDeleteBtns();
-        findShowDescrBtns();
     }
 
     // ----- przekazanie tablicy obiektów do stworzenia listy w html -----
     function addArrayToHtml(arr) {
-
         //wyczyszczenie htmla przed wczytaniem na nowo tasków
         taskList.innerHTML = "";
 
@@ -100,9 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return '_' + Math.random().toString(36).substr(2, 9);
     }
 
-    form.addEventListener('submit', function(event) {
+    function formValidateAndSubmit(event) {
         event.preventDefault();
-
 
         let taskInput = document.querySelector('#task-input');
         let dateInput = document.querySelector('#date-input');  //+required w html
@@ -115,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let taskPriority;
         for (let i = 0; i < 5; i++) {
-            if (priorities[i].checked === true) {
+            if (priorities[i].checked) {
                 taskPriority = priorities[i].value;
             }
         }
@@ -129,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
             formValid = false;
             error.innerText += "- enter a task's title \n";
         }
-
         if (taskInput.value.length > 25) {
             formValid = false;
             error.innerText += "- a title can't be longer than 25 characters \n";
@@ -145,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 checkboxCheckedNumber += 1;
             }
         }
-        if (checkboxCheckedNumber === 0) {
-            error.innerText += '- please choose priority \n';
+        if (!checkboxCheckedNumber) {
+            error.innerText += '- choose priority \n';
             formValid = false;
         }
 
@@ -159,17 +155,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 
-        //JESLI WALIDACJA JEST OK, uruchom funkcje:
+        //JESLI WALIDACJA JEST OK:
 
         if(formValid) {
-            createNewTaskObject(getTaskId, taskInput.value, dateInput.value, textAreaInput.value, taskPriority);
 
+            createNewTaskObject(getTaskId, taskInput.value, dateInput.value, textAreaInput.value, taskPriority);
             closeForm();
 
-            //====== reset formularza ==========
             form.reset();
         }
-    });
+    }
+
+    form.addEventListener('submit', formValidateAndSubmit);
 
 
     // ----- schowanie formularza po walidacji -----
@@ -219,18 +216,18 @@ document.addEventListener('DOMContentLoaded', function() {
     //=========================================================
     // ------- BUTTONY - usuwanie pojedynczych tasków --------
 
+    function deleteTask() {
+        let taskId = this.parentElement.parentElement.parentElement.querySelector('.task-id');
+
+        // usuwanie obiektu z tablicy głównej w LS
+        deleteTaskFromArray(taskId);
+    }
 
     function findDeleteBtns() {
 
         let deleteTaskBtns = document.querySelectorAll('.task-delete');
         for (let i = 0; i < deleteTaskBtns.length; i++) {
-            deleteTaskBtns[i].addEventListener('click', function() {
-
-                let taskId = this.parentElement.parentElement.parentElement.querySelector('.task-id');
-
-                // usuwanie obiektu z tablicy głównej w LS
-                deleteTaskFromArray(taskId);
-            })
+            deleteTaskBtns[i].addEventListener('click', deleteTask)
         }
     }
 
@@ -316,8 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //=========================================================
     //-------------- FILTRY - priorytety --------------
 
-    priorities.addEventListener('change', function () {
-
+    function filterPriority() {
         let priorityOption = this.value.charAt(this.value.length - 1);
         let allTasks = taskList.querySelectorAll('li');
 
@@ -326,7 +322,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             showAllTasks(allTasks);
         }
-    });
+    }
+
+    priorities.addEventListener('change', filterPriority);
+
 
     function priorityChangeClass(arr, priorityNr) {
 
@@ -351,8 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //-------------- FILTRY - pokaż wykonane --------------
 
-    filterDoneBtn.addEventListener('click', function () {
-
+    function filterDone() {
         let tasks = taskList.querySelectorAll('li');
 
         for (let i = 0; i < tasks.length; i++) {
@@ -360,13 +358,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 tasks[i].classList.remove('hidden') :
                 tasks[i].classList.add('hidden');
         }
-    });
+    }
+
+    filterDoneBtn.addEventListener('click', filterDone);
 
 
     //-------------- FILTRY - pokaż niewykonane --------------
 
-    filterUndoneBtn.addEventListener('click', function () {
-
+    function filterUndone() {
         let tasks = taskList.querySelectorAll('li');
 
         for (let i = 0; i < tasks.length; i++) {
@@ -374,12 +373,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 tasks[i].classList.add('hidden') :
                 tasks[i].classList.remove('hidden');
         }
-    });
+    }
+
+    filterUndoneBtn.addEventListener('click', filterUndone);
 
 
     //-------------- FILTRY - pokaż wszystkie --------------
 
-    filtersReset.addEventListener('click', function () {
+    function filtersReset() {
         let tasks = taskList.querySelectorAll('li');
 
         for (let i = 0; i < tasks.length; i++) {
@@ -388,24 +389,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         filterPriorityForm.reset();
-    });
+    }
+
+    filtersResetBtn.addEventListener('click', filtersReset);
 
 
     //===============================================
     // ----- usuwanie wszystkich zadań -----
 
-    removeAllBtn.addEventListener('click', function () {
-
+    function removeAllTasks() {
+        //przekazuję pustą tablicę do LS i ona jest wczytywana do html
         let newArrToLS = [];
         addArrayToLS(newArrToLS);
-        //przekazuję pustą tablicę do LS i ona jest wczytywana do html
-    });
+    }
+
+    removeAllBtn.addEventListener('click', removeAllTasks);
+
 
     //===============================================
     // ----- usuwanie wykonanych zadań -----
 
-    removeFinishedBtn.addEventListener('click', function () {
-
+    function removeFinishedTasks() {
         let taskArray = parseJsonFromLS();
         let newArrToLS = [];
 
@@ -415,19 +419,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         addArrayToLS(newArrToLS);
-    });
+    }
+
+    removeFinishedBtn.addEventListener('click', removeFinishedTasks);
 
 
     //===============================================
     // ---- wysuwanie i chowanie formularza po kliknięciu dodaj nowe ----
 
-
-    addNewTaskBtn.addEventListener('click', function () {
+    function addNewTask() {
         accordion(formSection);
         accordionHeader(formHeader);
         changeBtnTxt(addNewTaskBtn);
         changeBtnClass(addNewTaskBtn);
-    });
+    }
+
+    addNewTaskBtn.addEventListener('click', addNewTask);
+
 
     //stylowanie formularza (akordeon)
     function accordion(thisSection) {
