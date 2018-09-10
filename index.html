@@ -23,10 +23,10 @@
             <form action="" id="form">
 
                 <label for="task-input">Title</label>
-                <input type="text" name="form-task" id="task-input" placeholder="Title">
+                <input type="text" name="form-task" id="task-input" class="task-input" placeholder="Title">
 
                 <label for="date-input">Date</label>
-                <input type="date" name="form-date" id="date-input" placeholder="Date" required>
+                <input type="date" name="form-date" id="date-input" class="date-input" placeholder="Date" required>
 
                 <p>Priority</p>
                 <div class="priority-box">
@@ -53,11 +53,11 @@
                 </div>
 
                 <label for="textarea-input">Task description</label>
-                <textarea name="form-description" cols="100" rows="3" id="textarea-input" placeholder="Task description"></textarea>
+                <textarea name="form-description" cols="100" rows="3" id="textarea-input" class="textarea-input" placeholder="Task description"></textarea>
 
                 <div class="form-bottom">
-                    <button id="form-submit-btn" type="submit">Save</button>
-                    <div id="error-message"></div>
+                    <button id="form-submit-btn" class="form-submit-btn" type="submit">Save</button>
+                    <div id="error-message" class="error-message"></div>
                 </div>
 
             </form>

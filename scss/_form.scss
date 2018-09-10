@@ -98,7 +98,9 @@
   }
 }
 
-#task-input, #date-input, #textarea-input {
+.task-input,
+.date-input,
+.textarea-input {
   margin-top: 20px;
   border-radius: $radius-form;
   border: 1px solid $color-gray-border;
@@ -119,15 +121,17 @@
   }
 }
 
-#task-input, #date-input {
+.task-input,
+.date-input {
   height: 35px;
 }
 
-#task-input, #textarea-input {
+.task-input,
+.textarea-input {
   width: 100%;
 }
 
-#textarea-input {
+.textarea-input {
   height: 80px;
   resize: none;
 }
@@ -149,7 +153,7 @@
   min-height: 120px;
 }
 
-#form-submit-btn {
+.form-submit-btn {
   display: inline-block;
   height: 40px;
   width: 180px;
@@ -174,7 +178,7 @@
   }
 }
 
-#error-message {
+.error-message {
   color: red;
   font-size: 14px;
   width: 100%;
