@@ -358,6 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 tasks[i].classList.remove('hidden') :
                 tasks[i].classList.add('hidden');
         }
+        filterPriorityForm.reset();
     }
 
     filterDoneBtn.addEventListener('click', filterDone);
@@ -373,6 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 tasks[i].classList.add('hidden') :
                 tasks[i].classList.remove('hidden');
         }
+        filterPriorityForm.reset();
     }
 
     filterUndoneBtn.addEventListener('click', filterUndone);
