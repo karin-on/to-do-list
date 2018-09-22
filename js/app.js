@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // ===================================================
-    // 1) Zmienne
+    // 1) Stałe
     // ===================================================
 
     const form = document.querySelector('#form');
@@ -17,8 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const liToClone = document.querySelector('#li-to-clone');
     const taskList = document.querySelector('#task-list');
-    const priorities = document.querySelector('select');
+    const priorities = document.querySelector('#filter-priority');
     const filterPriorityForm = document.querySelector('#filter_priority');
+    const sort = document.querySelector('#sort-priority');
+
+    // console.log(taskList);
 
 
     // ===================================================
@@ -314,84 +317,204 @@ document.addEventListener('DOMContentLoaded', function() {
     //-------------- FILTRY - priorytety --------------
 
     function filterPriority() {
-        let priorityOption = this.value.charAt(this.value.length - 1);
+        let taskArray = parseJsonFromLS();
+        let priorityOption = this.value;
+        let filteredArray = [];
+
         let allTasks = taskList.querySelectorAll('li');
 
-        if (this.value !== "filter-all") {
-            priorityChangeClass(allTasks, priorityOption);
+        if (priorityOption !== "all") {
+            taskArray.forEach(el => {
+                if (el.taskPriority === priorityOption) {
+                    filteredArray.push(el);
+                }
+            })
+
+
+            // priorityChangeClass(allTasks, priorityOption);
         } else {
-            showAllTasks(allTasks);
+            filteredArray = taskArray;
+
+            // showAllTasks(allTasks);
         }
+
+        addArrayToHtml(filteredArray);
+
     }
 
     priorities.addEventListener('change', filterPriority);
 
 
-    function priorityChangeClass(arr, priorityNr) {
-
-        for (let i = 0; i < arr.length; i++) {
-
-            let priorityName = arr[i].querySelector('.task-priority').innerText;
-
-            if (priorityName !== priorityNr) {
-                arr[i].classList.add('hidden');
-            } else {
-                arr[i].classList.remove('hidden');
-            }
-        }
-    }
-
-    function showAllTasks (arr) {
-        for (let i = 0; i < arr.length; i++) {
-            arr[i].classList.remove('hidden');
-        }
-    }
+    // function priorityChangeClass(arr, priorityNr) {
+    //
+    //     for (let i = 0; i < arr.length; i++) {
+    //
+    //         let priorityName = arr[i].querySelector('.task-priority').innerText;
+    //
+    //         if (priorityName !== priorityNr) {
+    //             arr[i].classList.add('hidden');
+    //         } else {
+    //             arr[i].classList.remove('hidden');
+    //         }
+    //     }
+    // }
+    //
+    // function showAllTasks (arr) {
+    //     for (let i = 0; i < arr.length; i++) {
+    //         arr[i].classList.remove('hidden');
+    //     }
+    // }
 
 
     //-------------- FILTRY - pokaż wykonane --------------
-
-    function filterDone() {
-        let tasks = taskList.querySelectorAll('li');
-
-        for (let i = 0; i < tasks.length; i++) {
-            tasks[i].classList.contains('done') ?
-                tasks[i].classList.remove('hidden') :
-                tasks[i].classList.add('hidden');
-        }
-    }
-
+    
+    // function filterDone() {
+    //     let tasks = taskList.querySelectorAll('li');
+    //
+    //     for (let i = 0; i < tasks.length; i++) {
+    //         tasks[i].classList.contains('done') ?
+    //             tasks[i].classList.remove('hidden') :
+    //             tasks[i].classList.add('hidden');
+    //     }
+    // }
+    //
     filterDoneBtn.addEventListener('click', filterDone);
 
+    function filterDone() {
+        let taskArray = parseJsonFromLS();
+
+        //-------------------------------------- TO SIĘ PRZYDA :D --------------------
+        // taskArray.sort((a,b) => {
+        //     return a.taskPriority - b.taskPriority;
+        // });
+        //
+        // addArrayToHtml(taskArray);
+
+        let filteredArray = [];
+        taskArray.forEach(el => {
+            if (el.taskDone) {
+                filteredArray.push(el);
+            }
+        });
+        addArrayToHtml(filteredArray);
+    }
+
+    
 
     //-------------- FILTRY - pokaż niewykonane --------------
 
-    function filterUndone() {
-        let tasks = taskList.querySelectorAll('li');
-
-        for (let i = 0; i < tasks.length; i++) {
-            tasks[i].classList.contains('done') ?
-                tasks[i].classList.add('hidden') :
-                tasks[i].classList.remove('hidden');
-        }
-    }
+    // function filterUndone() {
+    //     let tasks = taskList.querySelectorAll('li');
+    //
+    //     for (let i = 0; i < tasks.length; i++) {
+    //         tasks[i].classList.contains('done') ?
+    //             tasks[i].classList.add('hidden') :
+    //             tasks[i].classList.remove('hidden');
+    //     }
+    // }
 
     filterUndoneBtn.addEventListener('click', filterUndone);
+
+    function filterUndone() {
+        let taskArray = parseJsonFromLS();
+        let filteredArray = [];
+
+        taskArray.forEach(el => {
+            if (!el.taskDone) {
+                filteredArray.push(el);
+            }
+        });
+        addArrayToHtml(filteredArray);
+    }
+
 
 
     //-------------- FILTRY - pokaż wszystkie --------------
 
-    function filtersReset() {
-        let tasks = taskList.querySelectorAll('li');
-
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].classList.contains('hidden')) {
-                tasks[i].classList.remove('hidden');
-            }
-        }
-        filterPriorityForm.reset();
-    }
+    // function filtersReset() {
+    //     let tasks = taskList.querySelectorAll('li');
+    //
+    //     for (let i = 0; i < tasks.length; i++) {
+    //         if (tasks[i].classList.contains('hidden')) {
+    //             tasks[i].classList.remove('hidden');
+    //         }
+    //     }
+    //     filterPriorityForm.reset();
+    // }
 
     filtersResetBtn.addEventListener('click', filtersReset);
+
+    function filtersReset() {
+        let taskArray = parseJsonFromLS();
+
+        addArrayToHtml(taskArray);
+    }
+
+
+
+    //-------------- SORTOWANIE --------------
+
+
+
+    sort.addEventListener('change', function () {
+        // let priorityOption = this.value.charAt(this.value.length - 1);
+        let taskItemsArray = taskList.querySelectorAll('li');
+        console.log(taskItemsArray);
+
+        // let priorities = [];
+        // taskItemsArray.sort((a,b) => {
+        //     return a.querySelector('.task-priority').innerText - b.querySelector('.task-priority').innerText;
+        // });
+
+        let sorted = taskItemsArray.sort();
+        console.log(sorted);
+
+
+
+
+        // let priorityValues = [];
+        // priorities.forEach(el => {
+        //     priorityValues.push(el.innerText);
+        // });
+        // console.log(priorityValues);
+
+        // taskList.sort((a,b) => a.)
+
+
+
+
+
+
+        // let taskArray = parseJsonFromLS();
+        // console.log(taskArray);     //głowna tablica obiektow
+
+
+        // if (sort.value === 'sort-ascending') {
+        //     taskArray.sort((a,b) => a.taskPriority - b.taskPriority);
+        // } else if (sort.value === 'sort-descending') {
+        //     taskArray.sort((a,b) => b.taskPriority - a.taskPriority);
+        // }
+        //
+        // console.log(taskArray);
+        //
+        // addArrayToHtml(taskArray);
+        // filterDone();
+        // filterUndone();
+        // findAllBtns();
+        // filterPriority();
+
+
+
+
+    });
+
+
+
+
+
+
+
+
 
 
     //===============================================
