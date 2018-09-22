@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // ===================================================
-    // 1) Zmienne
+    // 1) Stałe
     // ===================================================
 
     const form = document.querySelector('#form');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const liToClone = document.querySelector('#li-to-clone');
     const taskList = document.querySelector('#task-list');
-    const priorities = document.querySelector('select');
+    const priorities = document.querySelector('#filter-priority');
     const filterPriorityForm = document.querySelector('#filter_priority');
 
 
@@ -158,10 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
         //JESLI WALIDACJA JEST OK:
 
         if(formValid) {
-
             createNewTaskObject(getTaskId, taskInput.value, dateInput.value, textAreaInput.value, taskPriority);
             closeForm();
-
             form.reset();
         }
     }
@@ -288,7 +286,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //-------- BUTTONY - accordion - szczegóły zadań --------
 
     function findShowDescrBtns () {
-
         let showDescrBtns = document.querySelectorAll('.task-show');
 
         for (let i = 0; i < showDescrBtns.length; i++) {
@@ -314,50 +311,42 @@ document.addEventListener('DOMContentLoaded', function() {
     //-------------- FILTRY - priorytety --------------
 
     function filterPriority() {
-        let priorityOption = this.value.charAt(this.value.length - 1);
+        let taskArray = parseJsonFromLS();
+        let priorityOption = this.value;
+        let filteredArray = [];
+
         let allTasks = taskList.querySelectorAll('li');
 
-        if (this.value !== "filter-all") {
-            priorityChangeClass(allTasks, priorityOption);
+        if (priorityOption !== "all") {
+            taskArray.forEach(el => {
+                if (el.taskPriority === priorityOption) {
+                    filteredArray.push(el);
+                }
+            })
         } else {
-            showAllTasks(allTasks);
+            filteredArray = taskArray;
         }
+
+        addArrayToHtml(filteredArray);
+        findAllBtns();
     }
 
     priorities.addEventListener('change', filterPriority);
 
 
-    function priorityChangeClass(arr, priorityNr) {
-
-        for (let i = 0; i < arr.length; i++) {
-
-            let priorityName = arr[i].querySelector('.task-priority').innerText;
-
-            if (priorityName !== priorityNr) {
-                arr[i].classList.add('hidden');
-            } else {
-                arr[i].classList.remove('hidden');
-            }
-        }
-    }
-
-    function showAllTasks (arr) {
-        for (let i = 0; i < arr.length; i++) {
-            arr[i].classList.remove('hidden');
-        }
-    }
-
-
     //-------------- FILTRY - pokaż wykonane --------------
 
     function filterDone() {
-        let tasks = taskList.querySelectorAll('li');
+        let taskArray = parseJsonFromLS();
 
-        for (let i = 0; i < tasks.length; i++) {
-            tasks[i].classList.contains('done') ?
-                tasks[i].classList.remove('hidden') :
-                tasks[i].classList.add('hidden');
-        }
+        let filteredArray = [];
+        taskArray.forEach(el => {
+            if (el.taskDone) {
+                filteredArray.push(el);
+            }
+        });
+        addArrayToHtml(filteredArray);
+        findAllBtns();
         filterPriorityForm.reset();
     }
 
@@ -367,13 +356,16 @@ document.addEventListener('DOMContentLoaded', function() {
     //-------------- FILTRY - pokaż niewykonane --------------
 
     function filterUndone() {
-        let tasks = taskList.querySelectorAll('li');
+        let taskArray = parseJsonFromLS();
+        let filteredArray = [];
 
-        for (let i = 0; i < tasks.length; i++) {
-            tasks[i].classList.contains('done') ?
-                tasks[i].classList.add('hidden') :
-                tasks[i].classList.remove('hidden');
-        }
+        taskArray.forEach(el => {
+            if (!el.taskDone) {
+                filteredArray.push(el);
+            }
+        });
+        addArrayToHtml(filteredArray);
+        findAllBtns();
         filterPriorityForm.reset();
     }
 
@@ -383,17 +375,15 @@ document.addEventListener('DOMContentLoaded', function() {
     //-------------- FILTRY - pokaż wszystkie --------------
 
     function filtersReset() {
-        let tasks = taskList.querySelectorAll('li');
+        let taskArray = parseJsonFromLS();
 
-        for (let i = 0; i < tasks.length; i++) {
-            if (tasks[i].classList.contains('hidden')) {
-                tasks[i].classList.remove('hidden');
-            }
-        }
+        addArrayToHtml(taskArray);
+        findAllBtns();
         filterPriorityForm.reset();
     }
 
     filtersResetBtn.addEventListener('click', filtersReset);
+
 
 
     //===============================================
