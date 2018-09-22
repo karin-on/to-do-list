@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterPriorityForm = document.querySelector('#filter_priority');
     const sort = document.querySelector('#sort-priority');
 
-    // console.log(taskList);
-
-
     // ===================================================
     // 2) Definicje funkcji
     // ===================================================
@@ -291,7 +288,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //-------- BUTTONY - accordion - szczegóły zadań --------
 
     function findShowDescrBtns () {
-
         let showDescrBtns = document.querySelectorAll('.task-show');
 
         for (let i = 0; i < showDescrBtns.length; i++) {
@@ -339,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         addArrayToHtml(filteredArray);
-
+        findAllBtns();
     }
 
     priorities.addEventListener('change', filterPriority);
@@ -397,6 +393,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         addArrayToHtml(filteredArray);
+        findAllBtns();
+        filterPriorityForm.reset();
     }
 
     
@@ -425,6 +423,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         addArrayToHtml(filteredArray);
+        findAllBtns();
+        filterPriorityForm.reset();
     }
 
 
@@ -448,6 +448,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let taskArray = parseJsonFromLS();
 
         addArrayToHtml(taskArray);
+        findAllBtns();
+        filterPriorityForm.reset();
     }
 
 
@@ -507,11 +509,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     });
-
-
-
-
-
 
 
 
