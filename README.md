@@ -6,10 +6,10 @@ Here is my ToDo List - a single page application developed with [Ewa Biedulska](
 
 ## Getting Started
 
-To run this project you will need to have **Node.js** and **Gulp** installed on your local machine. After forking and cloning the repo please run these commands in your command line:
+To run this project you will need to have **Node.js** installed on your local machine. After forking and cloning the repo please run these commands in your command line:
 
 ```
-npm install
+npm i
 ```
 
 and
@@ -18,7 +18,9 @@ and
 gulp
 ```
 
-The project should automatically open in your browser at http://localhost:3000. All the tasks will be stored in your browser's Local Storage.
+The project should automatically open in your browser at http://localhost:3000. 
+
+All the tasks you add to the list will be stored in your browser's Local Storage.
 
 
 
